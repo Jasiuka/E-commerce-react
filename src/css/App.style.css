@@ -93,3 +93,104 @@ body {
   .navigation__logo {
     width: 6rem;
     height: 6rem; }
+  .navigation__list {
+    display: flex;
+    gap: 1.5rem; }
+
+.input {
+  position: relative;
+  margin: 2.5rem 0;
+  width: 100%; }
+  .input__label {
+    color: grey;
+    font-size: 1.6rem;
+    position: absolute;
+    pointer-events: none;
+    top: 1.2rem;
+    left: 0.6rem;
+    transition: all 0.3s; }
+  .input__input {
+    background-color: none;
+    border: none;
+    border-bottom: 1px solid black;
+    display: block;
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 0.6rem 1.2rem;
+    padding-left: 0.7rem;
+    margin: 1rem 0; }
+    .input__input:focus {
+      outline: none; }
+    .input__input:focus + .input__label {
+      font-size: 1.2rem;
+      top: -1.5rem; }
+    .input__input[type="password"] {
+      letter-spacing: 0.4rem; }
+
+.shrink {
+  font-size: 1.2rem;
+  top: -1.5rem; }
+
+.button {
+  display: inline-block;
+  background-color: black;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 1.4rem 4rem;
+  font-size: 1.6rem;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bolder;
+  transition: all 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  letter-spacing: 0.1rem; }
+  .button:hover {
+    background-color: transparent;
+    color: black;
+    border: 2px solid black; }
+
+.google-sign-button {
+  background-color: #4285f4;
+  color: #fff; }
+  .google-sign-button:hover {
+    background-color: transparent;
+    color: #4285f4;
+    border: 2px solid #4285f4; }
+
+.inverted {
+  background-color: transparent;
+  color: black; }
+  .inverted:hover {
+    background-color: black;
+    color: #fff; }
+
+.signin__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.forms {
+  display: flex;
+  gap: 8rem;
+  justify-content: center; }
+  .forms__signup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start; }
+  .forms__signin {
+    display: flex;
+    flex-direction: column;
+    width: 100%; }
+  .forms__box {
+    width: 30%; }
+    .forms__box h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem; }
+    .forms__box span {
+      font-size: 1.6rem;
+      margin-bottom: 2rem; }
