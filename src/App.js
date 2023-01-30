@@ -1,8 +1,7 @@
 import Home from "./routes/home/home.component";
-import SignIn from "./routes/sign-in/sign-in.component";
+import SignPage from "./routes/sign-page/sign-page";
 import Navigation from "./routes/navigation/navigation.component";
 import { Routes, Route } from "react-router-dom";
-import SignPage from "./components/sign-page/sign-page.component";
 
 const Shop = () => {
   return (

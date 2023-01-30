@@ -17,6 +17,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const [message, setMessage] = useState("");
 
   //   console.log(formFields);
 
@@ -30,7 +31,7 @@ const SignUpForm = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log("Confirm password is not same as passowrd!");
+      setMessage("Passwords does not match!");
       return;
     }
 
@@ -42,7 +43,7 @@ const SignUpForm = () => {
       setFormFields(defaultFormFields);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        alert("Email is already in use!");
+        setMessage("Email is already in use!");
       } else {
         console.log("User creation encountered an error", error);
       }
@@ -53,6 +54,7 @@ const SignUpForm = () => {
     <div className="forms__box">
       <h2>Don't have an account?</h2>
       <span>Sign Up using email and password</span>
+      <p className="message">{message}</p>
       <form onSubmit={handleSubmit} className="forms__signup">
         <FormInput
           label="Display Name"
