@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   UserCreateWithEmailAndPassword,
   CreateUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.util";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+import { UserContext } from "../../contexts/user.context";
 
 // Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
@@ -18,6 +19,8 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
   const [message, setMessage] = useState("");
+
+  const { setCurrentUser } = useContext(UserContext);
 
   //   console.log(formFields);
 
@@ -39,6 +42,8 @@ const SignUpForm = () => {
       const { user } = await UserCreateWithEmailAndPassword(email, password);
 
       await CreateUserDocumentFromAuth(user, { displayName });
+
+      setCurrentUser(user);
 
       setFormFields(defaultFormFields);
     } catch (error) {
