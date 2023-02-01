@@ -4,14 +4,7 @@ import Navigation from "./routes/navigation/navigation.component";
 import Profile from "./routes/profile/profile.component";
 import UserSettings from "./routes/settings/settings.component";
 import { Routes, Route } from "react-router-dom";
-
-const Shop = () => {
-  return (
-    <div>
-      <h1>Shop page</h1>
-    </div>
-  );
-};
+import Shop from "./routes/shop/shop.component";
 
 const App = () => {
   return (
