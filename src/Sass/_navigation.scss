@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 1.5rem 0;
+  padding: 1.5rem 2rem;
 
   &__link:visited,
   &__link:link,
@@ -11,7 +11,7 @@
     text-decoration: none;
     color: black;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 2.4rem;
     cursor: pointer;
   }
 
@@ -24,4 +24,47 @@
     display: flex;
     gap: 1.5rem;
   }
+
+  &__user:link,
+  &__user:visited,
+  &__user {
+    text-align: center;
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 1rem;
+    background-color: black;
+    color: #fff;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background-color: transparent;
+      color: black;
+      border: 2px solid black;
+    }
+  }
+}
+
+.user {
+  position: relative;
+  width: 100%;
+}
+.user-box {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -1.4rem;
+  display: flex;
+  width: 140%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.user:hover .user-box {
+  opacity: 1;
+  visibility: visible;
 }

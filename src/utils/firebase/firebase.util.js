@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -45,7 +46,7 @@ export const CreateUserDocumentFromAuth = async (
 ) => {
   const userDocReference = doc(dataBase, "users", userAuth.uid); // Duomenu bazė, kolekcijos pav (duomenu bazėj), id
   // userDocReference, yra skirtas tik patikrint ar egzistuoja toks reference duomenu bazėj, jis nera skirtas gauti info ar keisti
-  console.log(userDocReference);
+  // console.log(userDocReference);
 
   const userData = await getDoc(userDocReference);
   // console.log(userData.exists()); // patikrina ar egzistuoja vartotojo duomenys duomenu bazėj
@@ -85,3 +86,6 @@ export const SignInUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);

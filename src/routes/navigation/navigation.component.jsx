@@ -1,17 +1,32 @@
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Crwnlogo } from "../../assets/crown.svg";
 import { Fragment, useContext } from "react";
-import { UserContext, UsernameContext } from "../../contexts/user.context";
+import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.util";
+// import { getDoc, doc } from "firebase/firestore";
+// import { dataBase } from "../../utils/firebase/firebase.util";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  // const { currentUsername } = useContext(UsernameContext);
+  const { currentUser } = useContext(UserContext);
 
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  /////////////////////////////////////////////////////////////
+  // const [username, setUsername] = useState("");
+
+  // useEffect(
+  //   () => async () => {
+  //     if (currentUser) {
+  //       const docRef = doc(dataBase, "users", currentUser.uid);
+  //       const userDoc = await getDoc(docRef);
+  //       const data = userDoc.data();
+  //       const username = data["displayName"];
+  //       setUsername(username);
+  //     }
+  //     return;
+  //   },
+  //   [username, currentUser]
+  // );
+  // console.log(username);
+  /////////////////////////////////////////////////////////////
 
   return (
     <Fragment>
@@ -24,10 +39,22 @@ const Navigation = () => {
             Shop
           </Link>
           {currentUser ? (
-            <span className="navigation__link" onClick={signOutHandler}>
-              {" "}
-              SIGN OUT{" "}
-            </span>
+            <div className="user">
+              <span className="navigation__link navigation__username">
+                HELLO
+              </span>
+              <div className="user-box">
+                <Link to="/profile" className="navigation__user">
+                  PROFILE
+                </Link>
+                <Link to="/user-settings" className="navigation__user">
+                  SETTINGS
+                </Link>
+                <span className="navigation__user" onClick={signOutUser}>
+                  SIGN OUT
+                </span>
+              </div>
+            </div>
           ) : (
             <Link className="navigation__link" to="/sign-in">
               SIGN IN

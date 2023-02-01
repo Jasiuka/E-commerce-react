@@ -1,16 +1,12 @@
 import {
   auth,
-  CreateUserDocumentFromAuth,
   SignInWithGoogleRedirect,
   SignInUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.util";
 import { getRedirectResult } from "firebase/auth";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
-import { UserContext, UsernameContext } from "../../contexts/user.context";
-// import { doc, getDoc } from "firebase/firestore";
-// import { dataBase } from "../../utils/firebase/firebase.util";
 
 const defaultFields = {
   email: "",
@@ -23,15 +19,16 @@ const SignIn = () => {
   // Sign in with redirect
   useEffect(
     () => async () => {
-      const response = await getRedirectResult(auth);
+      await getRedirectResult(auth);
       //   console.log("Response");
       //   console.log(response);
-      if (response) {
-        const { user } = response;
-        // console.log("User");
-        // console.log(user);
-        await CreateUserDocumentFromAuth(user);
-      }
+
+      // if (response) {
+      // const { user } = response;
+
+      // console.log("User");
+      // console.log(user);
+      // }
     },
     []
   );
@@ -43,26 +40,13 @@ const SignIn = () => {
   //     await CreateUserDocumentFromAuth(user);
   //   };
 
-  /////////////// Context //////////////
-  const { setCurrentUser } = useContext(UserContext);
-
-  // const { currentUsername, setCurrentUsername } = useContext(UsernameContext);
-  // setCurrentUsername("Hello world");
-
   const HandleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await SignInUserWithEmailAndPassword(email, password);
-      setCurrentUser(user);
+      await SignInUserWithEmailAndPassword(email, password);
 
-      // const docRef = await doc(dataBase, "users", user.uid);
-      // const data = await getDoc(docRef);
-      // const username =
-      //   data._document.data.value.mapValue.fields.displayName.stringValue;
-      // console.log(username);
-      // setCurrentUsername(username);
-      // console.log(currentUsername);
+      // setCurrentUser(user); // remove
 
       setFormField(defaultFields);
     } catch (error) {

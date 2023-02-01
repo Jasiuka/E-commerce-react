@@ -1,6 +1,8 @@
 import Home from "./routes/home/home.component";
 import SignPage from "./routes/sign-page/sign-page";
 import Navigation from "./routes/navigation/navigation.component";
+import Profile from "./routes/profile/profile.component";
+import UserSettings from "./routes/settings/settings.component";
 import { Routes, Route } from "react-router-dom";
 
 const Shop = () => {
@@ -18,6 +20,8 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="shop" element={<Shop />} />
         <Route path="sign-in" element={<SignPage />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="user-settings" element={<UserSettings />} />
       </Route>
     </Routes>
   );

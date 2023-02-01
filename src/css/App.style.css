@@ -84,12 +84,12 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 1.5rem 0; }
+  padding: 1.5rem 2rem; }
   .navigation__link:visited, .navigation__link:link, .navigation__link {
     text-decoration: none;
     color: black;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 2.4rem;
     cursor: pointer; }
   .navigation__logo {
     width: 6rem;
@@ -97,6 +97,41 @@ body {
   .navigation__list {
     display: flex;
     gap: 1.5rem; }
+  .navigation__user:link, .navigation__user:visited, .navigation__user {
+    text-align: center;
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 1rem;
+    background-color: black;
+    color: #fff;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none; }
+    .navigation__user:link:hover, .navigation__user:visited:hover, .navigation__user:hover {
+      background-color: transparent;
+      color: black;
+      border: 2px solid black; }
+
+.user {
+  position: relative;
+  width: 100%; }
+
+.user-box {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -1.4rem;
+  display: flex;
+  width: 140%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s; }
+
+.user:hover .user-box {
+  opacity: 1;
+  visibility: visible; }
 
 .input {
   position: relative;
