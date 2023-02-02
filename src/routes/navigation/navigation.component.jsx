@@ -3,11 +3,15 @@ import { ReactComponent as Crwnlogo } from "../../assets/crown.svg";
 import { Fragment, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.util";
+import ShoppingCart from "../../components/shopipng-cart/shopping-cart.component";
+import ShoppingCartDropdown from "../../components/shopipng-cart/shopping-cart-dropdown.component";
+import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
 // import { getDoc, doc } from "firebase/firestore";
 // import { dataBase } from "../../utils/firebase/firebase.util";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartDropDownContext);
 
   /////////////////////////////////////////////////////////////
   // const [username, setUsername] = useState("");
@@ -60,7 +64,9 @@ const Navigation = () => {
               SIGN IN
             </Link>
           )}
+          <ShoppingCart />
         </div>
+        {isCartOpen && <ShoppingCartDropdown />}
       </div>
       <Outlet />
     </Fragment>
