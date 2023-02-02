@@ -15,6 +15,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   letter-spacing: 0.1rem;
+  text-decoration: none;
 
   &:hover {
     background-color: transparent;
@@ -48,4 +49,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.checkout-btn:visited,
+.checkout-btn:link {
+  text-decoration: none;
 }

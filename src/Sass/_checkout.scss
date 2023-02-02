@@ -1,0 +1,16 @@
+.checkout {
+  &__item {
+    display: flex;
+    padding: 2rem;
+    gap: 10rem;
+  }
+
+  &__quantity-box {
+    display: flex;
+    gap: 1rem;
+
+    p {
+      font-size: 2rem;
+    }
+  }
+}
