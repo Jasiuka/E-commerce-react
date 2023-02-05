@@ -352,13 +352,75 @@ body {
     font-size: 1.3rem;
     align-self: flex-start; }
 
-.checkout__item {
-  display: flex;
-  padding: 2rem;
-  gap: 10rem; }
+.checkout {
+  width: 50vw;
+  padding: 1.5rem 0;
+  margin: 0 auto; }
+  .checkout__main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; }
+  .checkout__header {
+    border-bottom: 1px solid black;
+    padding-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); }
+    .checkout__header-text {
+      font-size: 1.6rem;
+      text-align: center; }
+      .checkout__header-text-img {
+        grid-column: 1 / span 2; }
+      .checkout__header-text-description {
+        grid-column: 3 / 5; }
+      .checkout__header-text-quantity {
+        grid-column: 5 / span 2; }
+      .checkout__header-text-price {
+        grid-column: 7 / span 2; }
+      .checkout__header-text-remove {
+        grid-column: 9 / span 2; }
+  .checkout__total {
+    font-size: 1.8rem;
+    align-self: flex-end; }
+  .checkout__item {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    align-items: center;
+    padding: 2rem 0rem 2rem 0rem;
+    border-bottom: 1px solid black; }
+    .checkout__item button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.8rem;
+      font-weight: bolder; }
+    .checkout__item-image-box {
+      width: 100%;
+      height: 18rem;
+      overflow: hidden;
+      grid-column: 1 / span 2; }
+    .checkout__item-image {
+      width: 100%; }
+    .checkout__item-name {
+      font-weight: normal;
+      font-size: 1.8rem;
+      grid-column: 3 / span 2;
+      text-align: center; }
+    .checkout__item-price {
+      font-size: 1.8rem;
+      grid-column: 7 / span 2;
+      text-align: center; }
+  .checkout__message {
+    font-size: 2.4rem;
+    margin-top: 3rem; }
+  .checkout__quantity-box {
+    display: flex;
+    gap: 0.5rem;
+    grid-column: 5 / span 2;
+    align-items: center;
+    justify-content: center; }
+    .checkout__quantity-box p {
+      font-size: 2rem; }
 
-.checkout__quantity-box {
-  display: flex;
-  gap: 1rem; }
-  .checkout__quantity-box p {
-    font-size: 2rem; }
+.checkout__remove {
+  font-size: 2.4rem !important;
+  grid-column: 9 / span 2; }

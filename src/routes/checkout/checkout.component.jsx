@@ -3,18 +3,43 @@ import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
 import { useContext } from "react";
 
 const Checkout = () => {
-  const { cartItems } = useContext(CartDropDownContext);
+  const { cartItems, cartTotal } = useContext(CartDropDownContext);
 
   return (
     <div className="checkout">
-      <p className="checkout__table-text">Product</p>
-      <p className="checkout__table-text">Description</p>
-      <p className="checkout__table-text">Quantity</p>
-      <p className="checkout__table-text">Price</p>
-      <p className="checkout__table-text">Remove</p>
-      {cartItems.map((item) => {
-        return <CheckoutItem product={item} key={item.id} />;
-      })}
+      {cartItems.length === 0 ? (
+        <h3 className="checkout__message">You have no items in the cart!</h3>
+      ) : (
+        <div className="checkout__main">
+          <div className="checkout__header">
+            <p className="checkout__header-text checkout__header-text-img">
+              Product
+            </p>
+            <p className="checkout__header-text checkout__header-text-description">
+              Description
+            </p>
+            <p className="checkout__header-text checkout__header-text-quantity">
+              Quantity
+            </p>
+            <p className="checkout__header-text checkout__header-text-price">
+              Price
+            </p>
+            <p className="checkout__header-text checkout__header-text-remove">
+              Remove
+            </p>
+          </div>
+          <div className="checkout__items-box">
+            {cartItems.map((item) => {
+              return <CheckoutItem product={item} key={item.id} />;
+            })}
+          </div>
+          {cartItems.length === 0 ? (
+            <p></p>
+          ) : (
+            <p className="checkout__total">Total: ${cartTotal}</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
