@@ -10,8 +10,13 @@ import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
 // import { dataBase } from "../../utils/firebase/firebase.util";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, userUsername, setUsername } = useContext(UserContext);
   const { isCartOpen } = useContext(CartDropDownContext);
+
+  const signOutFromWeb = () => {
+    signOutUser();
+    setUsername("");
+  };
 
   /////////////////////////////////////////////////////////////
   // const [username, setUsername] = useState("");
@@ -45,7 +50,7 @@ const Navigation = () => {
           {currentUser ? (
             <div className="user">
               <span className="navigation__link navigation__username">
-                HELLO
+                {userUsername ? userUsername : ""}
               </span>
               <div className="user-box">
                 <Link to="/profile" className="navigation__user">
@@ -54,7 +59,7 @@ const Navigation = () => {
                 <Link to="/user-settings" className="navigation__user">
                   SETTINGS
                 </Link>
-                <span className="navigation__user" onClick={signOutUser}>
+                <span className="navigation__user" onClick={signOutFromWeb}>
                   SIGN OUT
                 </span>
               </div>

@@ -1,5 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-import { addCollectionAndDocuments } from "../utils/firebase/firebase.util.js";
+import {
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
+} from "../utils/firebase/firebase.util.js";
 // import SHOP_DATA from "../shop-data.js";
 
 export const ProductsContext = createContext({
@@ -14,6 +17,15 @@ export const ProductsProvider = ({ children }) => {
   // useEffect(() => {
   //   addCollectionAndDocuments("categories", SHOP_DATA);
   // }, []);
+
+  useEffect(() => {
+    // how to use async function in useEffect
+    const getCategories = async () => {
+      const categoryMap = await getCategoriesAndDocuments();
+      console.log(categoryMap);
+    };
+    getCategories();
+  }, []);
 
   return (
     <ProductsContext.Provider value={value}>
