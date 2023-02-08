@@ -43,7 +43,6 @@ export const UserProvider = ({ children }) => {
   // }, [currentUser]);
 
   useEffect(() => {
-    console.log(currentUser);
     const gettingUsername = async () => {
       if (currentUser) {
         const userRef = doc(dataBase, "users", currentUser.uid);

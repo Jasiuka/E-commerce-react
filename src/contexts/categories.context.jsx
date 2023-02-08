@@ -5,13 +5,13 @@ import {
 } from "../utils/firebase/firebase.util.js";
 // import SHOP_DATA from "../shop-data.js";
 
-export const ProductsContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
-export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const value = { products };
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
+  const value = { categoriesMap };
 
   // To import data to database //
   // useEffect(() => {
@@ -22,14 +22,14 @@ export const ProductsProvider = ({ children }) => {
     // how to use async function in useEffect
     const getCategories = async () => {
       const categoryMap = await getCategoriesAndDocuments();
-      console.log(categoryMap);
+      setCategoriesMap(categoryMap);
     };
     getCategories();
   }, []);
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };

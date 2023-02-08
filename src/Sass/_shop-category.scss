@@ -1,0 +1,19 @@
+.shop-category {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    row-gap: 7rem;
+  }
+}

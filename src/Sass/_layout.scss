@@ -27,11 +27,9 @@
 
 // Shop page Layout
 
-.shop {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  row-gap: 3rem;
+.categories-preview {
   padding: 1.5rem 0;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 7rem;
 }
