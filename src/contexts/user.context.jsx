@@ -12,6 +12,10 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
   userUsername: "",
   setUsername: () => {},
+  userImageUrl: "",
+  setUserImageUrl: () => {},
+  userCreated: "",
+  userEmail: "",
 });
 
 // const gettingUsername = async (user) => {
@@ -27,12 +31,19 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userUsername, setUsername] = useState("");
+  const [userImageUrl, setUserImageUrl] = useState("");
+  const [userCreated, setUserCreated] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const value = {
     currentUser,
     setCurrentUser,
     userUsername,
     setUsername,
+    userImageUrl,
+    setUserImageUrl,
+    userCreated,
+    userEmail,
   };
 
   // useEffect(() => {
@@ -43,22 +54,43 @@ export const UserProvider = ({ children }) => {
   // }, [currentUser]);
 
   useEffect(() => {
-    const gettingUsername = async () => {
+    const gettingUserData = async () => {
       if (currentUser) {
         const userRef = doc(dataBase, "users", currentUser.uid);
         const userData = await getDoc(userRef);
-        const name = userData.data().displayName;
-        if (name.includes(" ")) {
-          const username = name.slice(0, name.indexOf(" ")); // slice string to make it in one word (Name LastName => Name)
+        // const name = userData.data().displayName;
+        const { displayName, createdAt, imageUrl, email } = userData.data();
+        if (displayName.includes(" ")) {
+          const username = displayName.slice(0, displayName.indexOf(" ")); // slice string to make it in one word (Name LastName => Name)
           setUsername(username);
+          setUserImageUrl(imageUrl);
+          setUserCreated(createdAt);
+          setUserEmail(email);
         } else {
-          setUsername(name);
+          setUsername(displayName);
+          setUserImageUrl(imageUrl);
+          setUserCreated(createdAt);
+          setUserEmail(email);
         }
       }
       return;
     };
-    gettingUsername();
+    gettingUserData();
   }, [currentUser]);
+
+  // useEffect(() => {
+  //   const gettingImageUrl = async () => {
+  //     if (currentUser) {
+  //       const userRef = doc(dataBase, "users", currentUser.uid);
+  //       const userData = await getDoc(userRef);
+  //       const url = userData.data().imageUrl;
+  //       setUserImageUrl(url);
+  //     } else {
+  //       return;
+  //     }
+  //   };
+  //   gettingImageUrl();
+  // }, [currentUser]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {

@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import Button from "../button/button.component";
+import { Fragment, useContext } from "react";
 import { CartDropDownContext } from "../../contexts/cart-dropdown.context.jsx";
 import CartItem from "./cart-item.component";
 import { Link } from "react-router-dom";
@@ -8,15 +7,33 @@ const ShoppingCartDropdown = () => {
   const { cartItems } = useContext(CartDropDownContext);
 
   return (
-    <div className="cart__dropdown">
-      <div className="cart__items">
+    <div
+      className={`cart__dropdown ${
+        cartItems.length ? "" : "cart__dropdown-empty"
+      }`}
+    >
+      {cartItems.length ? (
+        <Fragment>
+          <div className="cart__items">
+            {cartItems.map((item) => (
+              <CartItem key={item.id} cartItem={item} />
+            ))}
+          </div>
+          <Link to="checkout" className="button">
+            GO TO CHECKOUT
+          </Link>
+        </Fragment>
+      ) : (
+        <span className="cart__empty-message">Your cart is empty</span>
+      )}
+      {/* <div className="cart__items">
         {cartItems.map((item) => (
           <CartItem key={item.id} cartItem={item} />
         ))}
       </div>
       <Link to="checkout" className="button">
         GO TO CHECKOUT
-      </Link>
+      </Link> */}
     </div>
   );
 };

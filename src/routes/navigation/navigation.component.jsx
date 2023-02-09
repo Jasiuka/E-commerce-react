@@ -10,7 +10,8 @@ import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
 // import { dataBase } from "../../utils/firebase/firebase.util";
 
 const Navigation = () => {
-  const { currentUser, userUsername, setUsername } = useContext(UserContext);
+  const { currentUser, userUsername, setUsername, userImageUrl } =
+    useContext(UserContext);
   const { isCartOpen } = useContext(CartDropDownContext);
 
   const signOutFromWeb = () => {
@@ -49,15 +50,23 @@ const Navigation = () => {
           </Link>
           {currentUser ? (
             <div className="user">
+              {userUsername ? (
+                <div className="user__image-box">
+                  <img
+                    className="user__image"
+                    src={userImageUrl}
+                    alt="default user"
+                  />
+                </div>
+              ) : (
+                <div className="user__no-user"></div>
+              )}
               <span className="navigation__link navigation__username">
                 {userUsername ? userUsername : ""}
               </span>
               <div className="user-box">
                 <Link to="/profile" className="navigation__user">
                   PROFILE
-                </Link>
-                <Link to="/user-settings" className="navigation__user">
-                  SETTINGS
                 </Link>
                 <span className="navigation__user" onClick={signOutFromWeb}>
                   SIGN OUT

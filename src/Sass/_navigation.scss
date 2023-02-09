@@ -23,7 +23,8 @@
 
   &__list {
     display: flex;
-    gap: 1.5rem;
+    gap: 2.5rem;
+    align-items: center;
   }
 
   &__user:link,
@@ -51,12 +52,27 @@
 .user {
   position: relative;
   // width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
+  &__image-box {
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  &__image {
+    width: 100%;
+  }
 }
 .user-box {
   opacity: 0;
   visibility: hidden;
   position: absolute;
   left: -2.5rem;
+  top: 110%;
   display: flex;
   width: 15rem;
   flex-direction: column;

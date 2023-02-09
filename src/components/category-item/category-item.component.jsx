@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const Category = ({ category }) => {
-  const { title } = category;
+  const { title, route } = category;
+  const navigate = useNavigate();
+
+  const onNavigateHandler = () => navigate(route);
   return (
-    <div className={`category category--${title}`}>
+    <div className={`category category--${title}`} onClick={onNavigateHandler}>
       <div
         className="category__background"
         style={{

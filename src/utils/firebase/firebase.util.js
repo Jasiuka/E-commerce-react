@@ -97,12 +97,14 @@ export const CreateUserDocumentFromAuth = async (
   if (!userData.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+    const imageUrl = "https://i.ibb.co/VYjmWqD/guest-User.jpg";
 
     try {
       await setDoc(userDocReference, {
         displayName,
         email,
         createdAt,
+        imageUrl,
         ...additionalInformation,
       });
     } catch (error) {

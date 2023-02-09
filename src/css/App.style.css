@@ -105,7 +105,8 @@ body {
     height: 6rem; }
   .navigation__list {
     display: flex;
-    gap: 1.5rem; }
+    gap: 2.5rem;
+    align-items: center; }
   .navigation__user:link, .navigation__user:visited, .navigation__user {
     text-align: center;
     width: 100%;
@@ -123,13 +124,24 @@ body {
       border: 2px solid black; }
 
 .user {
-  position: relative; }
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem; }
+  .user__image-box {
+    display: inline-block;
+    width: 4rem;
+    height: 4rem; }
+  .user__image {
+    width: 100%; }
 
 .user-box {
   opacity: 0;
   visibility: hidden;
   position: absolute;
   left: -2.5rem;
+  top: 110%;
   display: flex;
   width: 15rem;
   flex-direction: column;
@@ -314,7 +326,7 @@ body {
   .cart__dropdown {
     position: absolute;
     z-index: 97;
-    top: 70%;
+    top: 74%;
     right: -3.3rem;
     background-color: white;
     width: 26rem;
@@ -323,6 +335,8 @@ body {
     display: flex;
     flex-direction: column;
     padding: 2rem; }
+    .cart__dropdown-empty {
+      height: 7rem; }
   .cart__items {
     height: 24rem;
     display: flex;
@@ -330,6 +344,8 @@ body {
     overflow: scroll;
     gap: 1.5rem;
     margin-bottom: 0.5rem; }
+  .cart__empty-message {
+    font-size: 2rem; }
 
 .cart-item {
   display: grid;
@@ -457,3 +473,31 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     row-gap: 7rem; }
+
+.profile {
+  padding: 1.5rem 0; }
+  .profile__title {
+    font-size: 2.6rem;
+    margin-bottom: 3rem; }
+  .profile__data {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem; }
+    .profile__data-text {
+      display: flex;
+      gap: 1rem;
+      align-items: center; }
+      .profile__data-text span:first-child {
+        font-size: 1.8rem; }
+      .profile__data-text span:nth-child(2) {
+        font-size: 1.8rem;
+        font-weight: bolder; }
+  .profile__data--image {
+    display: flex;
+    height: 10rem;
+    gap: 2rem;
+    align-items: center; }
+    .profile__data--image span:first-child {
+      font-size: 1.8rem; }
+  .profile__image {
+    height: 100%; }
