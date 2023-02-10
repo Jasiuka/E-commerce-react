@@ -4,7 +4,7 @@ import {
   CreateUserDocumentFromAuth,
   dataBase,
 } from "../utils/firebase/firebase.util";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // as the actual value you want to access
 export const UserContext = createContext({
@@ -17,6 +17,14 @@ export const UserContext = createContext({
   userCreated: "",
   userEmail: "",
 });
+
+export const changeUserName = async (currentUser, newName) => {
+  const userRef = doc(dataBase, "users", currentUser.uid);
+  const newData = {
+    displayName: newName,
+  };
+  await setDoc(userRef, newData, { merge: true });
+};
 
 // const gettingUsername = async (user) => {
 //   if (user) {
@@ -76,7 +84,7 @@ export const UserProvider = ({ children }) => {
       return;
     };
     gettingUserData();
-  }, [currentUser]);
+  }, [currentUser, userUsername]);
 
   // useEffect(() => {
   //   const gettingImageUrl = async () => {

@@ -1,5 +1,8 @@
 import { Fragment } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { ReactComponent as HouseIcon } from "../../assets/house.svg";
+import { ReactComponent as EnvelopeIcon } from "../../assets/envelope.svg";
+import { ReactComponent as CallIcon } from "../../assets/call.svg";
 
 const Footer = () => {
   return (
@@ -12,7 +15,7 @@ const Footer = () => {
             <div className="contacts">
               <div className="footer__location--info-box">
                 <span className="footer__location--info-label">
-                  Our adress:
+                  <HouseIcon className="footer__icon" />
                 </span>
                 <span className="footer__location--info-text">
                   Jonavos g., 44136 Kaunas
@@ -20,12 +23,14 @@ const Footer = () => {
               </div>
               <div className="footer__location--info-box">
                 <span className="footer__location--info-label">
-                  Phone number:
+                  <CallIcon className="footer__icon" />
                 </span>
                 <span className="footer__location--info-text">+370000000</span>
               </div>
               <div className="footer__location--info-box">
-                <span className="footer__location--info-label">Email:</span>
+                <span className="footer__location--info-label">
+                  <EnvelopeIcon className="footer__icon" />
+                </span>
                 <span className="footer__location--info-text">
                   crwnclothing@info.com
                 </span>
