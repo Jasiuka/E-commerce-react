@@ -51,7 +51,6 @@ const SignUpForm = () => {
       const { user } = await UserCreateWithEmailAndPassword(email, password);
       const DEFAULT_IMAGE = "https://i.ibb.co/wYp5NJt/icons8-customer-100.png";
       const DATE = new Date();
-      console.log(DATE);
 
       await CreateUserDocumentFromAuth(user, { displayName });
       settingUserData(displayName, email, DEFAULT_IMAGE, DATE);
