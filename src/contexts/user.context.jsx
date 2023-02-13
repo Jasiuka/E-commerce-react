@@ -23,17 +23,26 @@ export const changeUserName = async (currentUser, newName) => {
   const newData = {
     displayName: newName,
   };
+  await setDoc(userRef, newData, { merge: true }); // to merge document attributes or change if it exist
+};
+
+export const changeImageUrl = async (currentUser, newUrl) => {
+  const userRef = doc(dataBase, "users", currentUser.uid);
+  const newData = {
+    imageUrl: newUrl,
+  };
   await setDoc(userRef, newData, { merge: true });
 };
 
-// const gettingUsername = async (user) => {
-//   if (user) {
-//     const userRef = doc(dataBase, "users", user.uid);
-//     const userData = await getDoc(userRef);
-//     const username =
-//   }
-//   return;
-// };
+export const getUserData = async (user) => {
+  if (user) {
+    const userRef = doc(dataBase, "users", user.uid);
+    const userData = await getDoc(userRef);
+    return userData.data();
+  } else {
+    return;
+  }
+};
 
 // Functional component. Which wraps other components in which you want access to actual value
 export const UserProvider = ({ children }) => {
@@ -42,6 +51,7 @@ export const UserProvider = ({ children }) => {
   const [userImageUrl, setUserImageUrl] = useState("");
   const [userCreated, setUserCreated] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userData, setUserData] = useState(null);
 
   const value = {
     currentUser,
@@ -54,37 +64,24 @@ export const UserProvider = ({ children }) => {
     userEmail,
   };
 
+  useEffect(() => {
+    if (!userData) {
+      return;
+    }
+    userData.then((response) => {
+      setUsername(response.displayName);
+      setUserImageUrl(response.imageUrl);
+      setUserEmail(response.email);
+      setUserCreated(response.createdAt);
+    });
+  }, [currentUser]);
+
   // useEffect(() => {
   //   const getName = async () => {
   //     gettingUsername(currentUser);
   //   };
   //   getName();
   // }, [currentUser]);
-
-  useEffect(() => {
-    const gettingUserData = async () => {
-      if (currentUser) {
-        const userRef = doc(dataBase, "users", currentUser.uid);
-        const userData = await getDoc(userRef);
-        // const name = userData.data().displayName;
-        const { displayName, createdAt, imageUrl, email } = userData.data();
-        if (displayName.includes(" ")) {
-          const username = displayName.slice(0, displayName.indexOf(" ")); // slice string to make it in one word (Name LastName => Name)
-          setUsername(username);
-          setUserImageUrl(imageUrl);
-          setUserCreated(createdAt);
-          setUserEmail(email);
-        } else {
-          setUsername(displayName);
-          setUserImageUrl(imageUrl);
-          setUserCreated(createdAt);
-          setUserEmail(email);
-        }
-      }
-      return;
-    };
-    gettingUserData();
-  }, [currentUser, userUsername]);
 
   // useEffect(() => {
   //   const gettingImageUrl = async () => {
@@ -104,8 +101,10 @@ export const UserProvider = ({ children }) => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         CreateUserDocumentFromAuth(user);
+        setUserData(getUserData(user));
       }
       setCurrentUser(user);
+      setUserData(getUserData(user));
     });
 
     // Šita funkcija returnina ta, kad jeigu vartotojas prisijungė,

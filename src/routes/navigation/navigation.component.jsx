@@ -6,8 +6,6 @@ import { signOutUser } from "../../utils/firebase/firebase.util";
 import ShoppingCart from "../../components/shopipng-cart/shopping-cart.component";
 import ShoppingCartDropdown from "../../components/shopipng-cart/shopping-cart-dropdown.component";
 import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
-// import { getDoc, doc } from "firebase/firestore";
-// import { dataBase } from "../../utils/firebase/firebase.util";
 
 const Navigation = () => {
   const { currentUser, userUsername, setUsername, userImageUrl } =
@@ -18,25 +16,6 @@ const Navigation = () => {
     signOutUser();
     setUsername("");
   };
-
-  /////////////////////////////////////////////////////////////
-  // const [username, setUsername] = useState("");
-
-  // useEffect(
-  //   () => async () => {
-  //     if (currentUser) {
-  //       const docRef = doc(dataBase, "users", currentUser.uid);
-  //       const userDoc = await getDoc(docRef);
-  //       const data = userDoc.data();
-  //       const username = data["displayName"];
-  //       setUsername(username);
-  //     }
-  //     return;
-  //   },
-  //   [username, currentUser]
-  // );
-  // console.log(username);
-  /////////////////////////////////////////////////////////////
 
   return (
     <Fragment>
@@ -55,7 +34,7 @@ const Navigation = () => {
                   <img
                     className="user__image"
                     src={userImageUrl}
-                    alt="default user"
+                    alt="user profile img"
                   />
                 </div>
               ) : (
