@@ -16,6 +16,8 @@ export const UserContext = createContext({
   setUserImageUrl: () => {},
   userCreated: "",
   userEmail: "",
+  setUserCreated: () => {},
+  setUserEmail: () => {},
 });
 
 export const changeUserName = async (currentUser, newName) => {
@@ -62,19 +64,24 @@ export const UserProvider = ({ children }) => {
     setUserImageUrl,
     userCreated,
     userEmail,
+    setUserEmail,
+    setUserCreated,
   };
 
   useEffect(() => {
     if (!userData) {
       return;
+    } else {
+      userData.then((response) => {
+        if (response) {
+          setUsername(response.displayName);
+          setUserImageUrl(response.imageUrl);
+          setUserEmail(response.email);
+          setUserCreated(response.createdAt);
+        }
+      });
     }
-    userData.then((response) => {
-      setUsername(response.displayName);
-      setUserImageUrl(response.imageUrl);
-      setUserEmail(response.email);
-      setUserCreated(response.createdAt);
-    });
-  }, [currentUser]);
+  }, [currentUser, userData]);
 
   // useEffect(() => {
   //   const getName = async () => {

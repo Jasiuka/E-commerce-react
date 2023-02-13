@@ -30,16 +30,26 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const userSeconds = userCreated.seconds;
-    const thisDate = new Date(null);
-    thisDate.setTime(userSeconds * 1000);
-    const userDay = thisDate.getDate();
-    const userMonth = `${thisDate.getMonth() > 9 ? "" : "0"}${
-      thisDate.getMonth() + 1
-    }`;
-    const userYear = thisDate.getFullYear();
-    const date = `${userYear} / ${userMonth} / ${userDay}`;
-    setDate(date);
+    if (userCreated.seconds) {
+      const userSeconds = userCreated.seconds;
+      const thisDate = new Date(null);
+      thisDate.setTime(userSeconds * 1000);
+      const userDay = thisDate.getDate();
+      const userMonth = `${thisDate.getMonth() > 9 ? "" : "0"}${
+        thisDate.getMonth() + 1
+      }`;
+      const userYear = thisDate.getFullYear();
+      const date = `${userYear} / ${userMonth} / ${userDay}`;
+      setDate(date);
+    } else {
+      const userDay = userCreated.getDate();
+      const userMonth = `${userCreated.getMonth() > 9 ? "" : "0"}${
+        userCreated.getMonth() + 1
+      }`;
+      const userYear = userCreated.getFullYear();
+      const date = `${userYear} / ${userMonth} / ${userDay}`;
+      setDate(date);
+    }
   }, [userCreated]);
 
   const [boxStateName, setBoxStateName] = useState("box-collapse");
@@ -106,7 +116,11 @@ const Profile = () => {
         <div className="profile__data--image">
           <div className="profile__data--image-visible">
             <span>Profile picture:</span>
-            <img className="profile__image" src={userImageUrl} alt="user profile img" />
+            <img
+              className="profile__image"
+              src={userImageUrl}
+              alt="user profile img"
+            />
             <button className="profile__btn" onClick={toggleBoxChangeImage}>
               Change picture
             </button>

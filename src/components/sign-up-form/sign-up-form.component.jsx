@@ -5,6 +5,8 @@ import {
 } from "../../utils/firebase/firebase.util";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+import { UserContext } from "../../contexts/user.context";
+import { useContext } from "react";
 
 // Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
@@ -18,6 +20,16 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
   const [message, setMessage] = useState("");
+
+  const { setUserImageUrl, setUsername, setUserCreated, setUserEmail } =
+    useContext(UserContext);
+
+  const settingUserData = (name, email, imageUrl, date) => {
+    setUsername(name);
+    setUserEmail(email);
+    setUserImageUrl(imageUrl);
+    setUserCreated(date);
+  };
 
   //   console.log(formFields);
 
@@ -37,8 +49,12 @@ const SignUpForm = () => {
 
     try {
       const { user } = await UserCreateWithEmailAndPassword(email, password);
+      const DEFAULT_IMAGE = "https://i.ibb.co/wYp5NJt/icons8-customer-100.png";
+      const DATE = new Date();
+      console.log(DATE);
 
       await CreateUserDocumentFromAuth(user, { displayName });
+      settingUserData(displayName, email, DEFAULT_IMAGE, DATE);
 
       setFormFields(defaultFormFields);
     } catch (error) {
