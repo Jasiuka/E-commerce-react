@@ -21,14 +21,10 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
   const [message, setMessage] = useState("");
 
-  const { setUserImageUrl, setUsername, setUserCreated, setUserEmail } =
-    useContext(UserContext);
+  const { setUserD } = useContext(UserContext);
 
-  const settingUserData = (name, email, imageUrl, date) => {
-    setUsername(name);
-    setUserEmail(email);
-    setUserImageUrl(imageUrl);
-    setUserCreated(date);
+  const settingUserData = (data) => {
+    setUserD(data);
   };
 
   //   console.log(formFields);
@@ -53,7 +49,13 @@ const SignUpForm = () => {
       const DATE = new Date();
 
       await CreateUserDocumentFromAuth(user, { displayName });
-      settingUserData(displayName, email, DEFAULT_IMAGE, DATE);
+      const userData = {
+        displayName: displayName,
+        email: email,
+        imageUrl: DEFAULT_IMAGE,
+        createdAt: DATE,
+      };
+      settingUserData(userData);
 
       setFormFields(defaultFormFields);
     } catch (error) {

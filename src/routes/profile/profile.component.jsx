@@ -15,16 +15,23 @@ const Profile = () => {
 
   const [date, setDate] = useState("");
 
+  const settingUsername = (username) => {
+    setUsername(username);
+  };
+  const settingImageUrl = (url) => {
+    setUserImageUrl(url);
+  };
+
   const saveNameChange = async () => {
     changeUserName(currentUser, nameValue);
-    setUsername(nameValue);
+    settingUsername(nameValue);
     setNameValue("");
     setBoxStateName("box-collapse");
   };
 
   const saveUrlChange = async () => {
     changeImageUrl(currentUser, urlValue);
-    setUserImageUrl(urlValue);
+    settingImageUrl(urlValue);
     setUrlValue("");
     setBoxStateImage("box-collapse");
   };

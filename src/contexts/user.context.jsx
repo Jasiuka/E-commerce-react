@@ -1,10 +1,11 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
 import {
   onAuthStateChangedListener,
   CreateUserDocumentFromAuth,
   dataBase,
 } from "../utils/firebase/firebase.util";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 // as the actual value you want to access
 export const UserContext = createContext({
@@ -46,13 +47,87 @@ export const getUserData = async (user) => {
   }
 };
 
+export const USER_ACTION_TYPES = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+  SET_USER_DATA: "SET_USER_DATA",
+  SET_USER_NAME: "SET_USER_NAME",
+  SET_USER_IMAGE_URL: "SET_USER_IMAGE_URL",
+};
+
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: payload,
+      };
+    case USER_ACTION_TYPES.SET_USER_DATA:
+      return {
+        ...state,
+        ...payload,
+      };
+    case USER_ACTION_TYPES.SET_USER_NAME:
+      return {
+        ...state,
+        userUsername: payload,
+      };
+    case USER_ACTION_TYPES.SET_USER_IMAGE_URL:
+      return {
+        ...state,
+        userImageUrl: payload,
+      };
+
+    default:
+      throw new Error(`Unhandled type ${type} in userReducer`);
+  }
+};
+
+const INITIAL_STATE = {
+  currentUser: null,
+  userUsername: "",
+  userImageUrl: "",
+  userEmail: "",
+  userCreated: new Date(),
+};
+
 // Functional component. Which wraps other components in which you want access to actual value
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userUsername, setUsername] = useState("");
-  const [userImageUrl, setUserImageUrl] = useState("");
-  const [userCreated, setUserCreated] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [
+    { currentUser, userUsername, userEmail, userImageUrl, userCreated },
+    dispatch,
+  ] = useReducer(userReducer, INITIAL_STATE);
+
+  const setCurrentUser = (user) => {
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+  };
+
+  const setUserD = (data) => {
+    dispatch(
+      createAction(USER_ACTION_TYPES.SET_USER_DATA, {
+        userUsername: data.displayName,
+        userEmail: data.email,
+        userImageUrl: data.imageUrl,
+        userCreated: data.createdAt,
+      })
+    );
+  };
+
+  const setUsername = (username) => {
+    dispatch(createAction(USER_ACTION_TYPES.SET_USER_NAME, username));
+  };
+  const setUserImageUrl = (url) => {
+    dispatch(createAction(USER_ACTION_TYPES.SET_USER_NAME, url));
+  };
+
+  // REPLACING WITH REDUCERS
+  // const [currentUser, setCurrentUser] = useState(null);
+  // const [userUsername, setUsername] = useState("");
+  // const [userImageUrl, setUserImageUrl] = useState("");
+  // const [userCreated, setUserCreated] = useState("");
+  // const [userEmail, setUserEmail] = useState("");
+
   const [userData, setUserData] = useState(null);
 
   const value = {
@@ -64,8 +139,9 @@ export const UserProvider = ({ children }) => {
     setUserImageUrl,
     userCreated,
     userEmail,
-    setUserEmail,
-    setUserCreated,
+    setUserD,
+    // setUserEmail,
+    // setUserCreated,
   };
 
   useEffect(() => {
@@ -74,10 +150,7 @@ export const UserProvider = ({ children }) => {
     } else {
       userData.then((response) => {
         if (response) {
-          setUsername(response.displayName);
-          setUserImageUrl(response.imageUrl);
-          setUserEmail(response.email);
-          setUserCreated(response.createdAt);
+          setUserD(response);
         }
       });
     }
