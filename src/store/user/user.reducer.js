@@ -1,11 +1,5 @@
-export const USER_ACTION_TYPES = {
-  SET_CURRENT_USER: "SET_CURRENT_USER",
-  SET_USER_DATA: "SET_USER_DATA",
-  SET_USER_NAME: "SET_USER_NAME",
-  SET_USER_IMAGE_URL: "SET_USER_IMAGE_URL",
-};
-
-export const userReducer = (state, action) => {
+import { USER_ACTION_TYPES } from "./user.types";
+export const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {

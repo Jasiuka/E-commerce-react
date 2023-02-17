@@ -1,20 +1,23 @@
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Crwnlogo } from "../../assets/crown.svg";
 import { Fragment, useContext } from "react";
-import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.util";
 import ShoppingCart from "../../components/shopipng-cart/shopping-cart.component";
 import ShoppingCartDropdown from "../../components/shopipng-cart/shopping-cart-dropdown.component";
 import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsername } from "../../store/user/user.action";
 
 const Navigation = () => {
-  const { currentUser, userUsername, setUsername, userImageUrl } =
-    useContext(UserContext);
+  const dispatch = useDispatch();
+  const { currentUser, userUsername, userImageUrl } = useSelector(
+    (state) => state.user
+  );
   const { isCartOpen } = useContext(CartDropDownContext);
 
   const signOutFromWeb = () => {
     signOutUser();
-    setUsername("");
+    dispatch(setUsername(""));
   };
 
   return (

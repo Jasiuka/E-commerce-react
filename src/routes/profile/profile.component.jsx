@@ -1,25 +1,56 @@
-import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../contexts/user.context";
-import { changeUserName, changeImageUrl } from "../../contexts/user.context";
+import { useState, useEffect } from "react";
+// USING REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { setUsername, setUserImageUrl } from "../../store/user/user.action";
+import { dataBase } from "../../utils/firebase/firebase.util";
+import { doc, setDoc } from "firebase/firestore";
+
+// USING CONTEXT
+// import { UserContext } from "../../contexts/user.context";
+// import { changeUserName, changeImageUrl } from "../../contexts/user.context";
+
+// Functions to change username and imageUrl data in DB
+export const changeUserName = async (currentUser, newName) => {
+  const userRef = doc(dataBase, "users", currentUser.uid);
+  const newData = {
+    displayName: newName,
+  };
+  await setDoc(userRef, newData, { merge: true }); // to merge document attributes or change if it exist
+};
+
+export const changeImageUrl = async (currentUser, newUrl) => {
+  const userRef = doc(dataBase, "users", currentUser.uid);
+  const newData = {
+    imageUrl: newUrl,
+  };
+  await setDoc(userRef, newData, { merge: true });
+};
+// ////////////////////////// ////////////////////////////////
 
 const Profile = () => {
-  const {
-    userEmail,
-    userCreated,
-    userUsername,
-    userImageUrl,
-    currentUser,
-    setUsername,
-    setUserImageUrl,
-  } = useContext(UserContext);
+  const dispatch = useDispatch();
+
+  // Method for using context
+  // const {
+  //   userEmail,
+  //   userCreated,
+  //   userUsername,
+  //   userImageUrl,
+  //   currentUser,
+  //   setUsername,
+  //   setUserImageUrl,
+  // } = useContext(UserContext);
+
+  const { userEmail, userCreated, userUsername, userImageUrl, currentUser } =
+    useSelector((state) => state.user);
 
   const [date, setDate] = useState("");
 
   const settingUsername = (username) => {
-    setUsername(username);
+    dispatch(setUsername(username));
   };
   const settingImageUrl = (url) => {
-    setUserImageUrl(url);
+    dispatch(setUserImageUrl(url));
   };
 
   const saveNameChange = async () => {
@@ -36,6 +67,7 @@ const Profile = () => {
     setBoxStateImage("box-collapse");
   };
 
+  // Getting date in format of YYYY/MM/DD
   useEffect(() => {
     if (userCreated.seconds) {
       const userSeconds = userCreated.seconds;
@@ -62,11 +94,15 @@ const Profile = () => {
   const [boxStateName, setBoxStateName] = useState("box-collapse");
   const [boxStateImage, setBoxStateImage] = useState("box-collapse");
 
+  // Default values of inputs
   const defaultName = "";
   const defaultUrlValue = "";
+
+  // States for watching of changes in inputs
   const [nameValue, setNameValue] = useState(defaultName);
   const [urlValue, setUrlValue] = useState(defaultUrlValue);
 
+  // Toggling change boxes
   const toggleBoxChangeName = () => {
     boxStateName ? setBoxStateName("") : setBoxStateName("box-collapse");
   };

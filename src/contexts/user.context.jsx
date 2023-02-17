@@ -144,17 +144,17 @@ export const UserProvider = ({ children }) => {
     // setUserCreated,
   };
 
-  useEffect(() => {
-    if (!userData) {
-      return;
-    } else {
-      userData.then((response) => {
-        if (response) {
-          setUserD(response);
-        }
-      });
-    }
-  }, [currentUser, userData]);
+  // useEffect(() => {
+  //   if (!userData) {
+  //     return;
+  //   } else {
+  //     userData.then((response) => {
+  //       if (response) {
+  //         setUserD(response);
+  //       }
+  //     });
+  //   }
+  // }, [currentUser, userData]);
 
   // useEffect(() => {
   //   const getName = async () => {
@@ -177,22 +177,22 @@ export const UserProvider = ({ children }) => {
   //   gettingImageUrl();
   // }, [currentUser]);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        CreateUserDocumentFromAuth(user);
-        setUserData(getUserData(user));
-      }
-      setCurrentUser(user);
-      setUserData(getUserData(user));
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChangedListener((user) => {
+  //     if (user) {
+  //       CreateUserDocumentFromAuth(user);
+  //       setUserData(getUserData(user));
+  //     }
+  //     setCurrentUser(user);
+  //     setUserData(getUserData(user));
+  //   });
 
-    // Šita funkcija returnina ta, kad jeigu vartotojas prisijungė,
-    // tai pradėtu sekti/trackint/observint auth (vartotojo autentikacija), bet jeigu vartotojas atsijunge,
-    // tai šita funkcija returnina ta, kad sekt nebereikia. Kol vartotojas vėl prisijunge ir triggerina šita efekta
+  //   // Šita funkcija returnina ta, kad jeigu vartotojas prisijungė,
+  //   // tai pradėtu sekti/trackint/observint auth (vartotojo autentikacija), bet jeigu vartotojas atsijunge,
+  //   // tai šita funkcija returnina ta, kad sekt nebereikia. Kol vartotojas vėl prisijunge ir triggerina šita efekta
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

@@ -16,13 +16,13 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <UserProvider>
-          <CategoriesProvider>
-            <CartDropDownContextProvider>
-              <App />
-            </CartDropDownContextProvider>
-          </CategoriesProvider>
-        </UserProvider>
+        {/* <UserProvider> */}
+        {/* <CategoriesProvider> */}
+        <CartDropDownContextProvider>
+          <App />
+        </CartDropDownContextProvider>
+        {/* </CategoriesProvider> */}
+        {/* </UserProvider> */}
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
