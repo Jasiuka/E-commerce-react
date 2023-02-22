@@ -14,9 +14,9 @@ import {
   onAuthStateChangedListener,
   CreateUserDocumentFromAuth,
 } from "./utils/firebase/firebase.util";
-import { getUserData } from "./contexts/user.context";
 import { setUserD } from "./store/user/user.action";
 import { setCurrentUser } from "./store/user/user.action";
+import { getUserData } from "./store/user/user.action";
 
 const App = () => {
   const dispatch = useDispatch();

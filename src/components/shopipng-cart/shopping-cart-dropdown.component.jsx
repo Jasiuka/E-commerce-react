@@ -1,10 +1,11 @@
-import { Fragment, useContext } from "react";
-import { CartDropDownContext } from "../../contexts/cart-dropdown.context.jsx";
+import { Fragment } from "react";
 import CartItem from "./cart-item.component";
 import { Link } from "react-router-dom";
-
+// for redux
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector.js";
 const ShoppingCartDropdown = () => {
-  const { cartItems } = useContext(CartDropDownContext);
+  const cartItems = useSelector(selectCartItems);
 
   return (
     <div

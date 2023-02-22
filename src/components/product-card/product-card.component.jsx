@@ -1,19 +1,15 @@
 import Button from "../button/button.component";
-import { useContext } from "react";
-import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
+// for redux
+import { addItemToCart } from "../../store/cart/cart.action";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const { addItemToCart } = useContext(CartDropDownContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
-  // const { cartCount, addCartCount } = useContext(CartDropDownContext); MANO
-
-  const addProductToCart = () => {
-    addItemToCart(product);
-
-    //////////////////////// MY WAY TO UPDATE CART COUNT ///////////////////////////////////
-    // addCartCount(cartCount + 1);
-  };
+  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
   return (
     <div className="product-card">

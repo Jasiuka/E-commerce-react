@@ -1,5 +1,7 @@
 import { createAction } from "../../utils/reducer/reducer.utils";
 import { USER_ACTION_TYPES } from "./user.types";
+import { dataBase } from "../../utils/firebase/firebase.util";
+import { doc, getDoc } from "firebase/firestore";
 
 export const setCurrentUser = (user) =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
@@ -24,3 +26,14 @@ export const setUsername = (username) =>
 
 export const setUserImageUrl = (url) =>
   createAction(USER_ACTION_TYPES.SET_USER_NAME, url);
+
+// Helper
+export const getUserData = async (user) => {
+  if (user) {
+    const userRef = doc(dataBase, "users", user.uid);
+    const userData = await getDoc(userRef);
+    return userData.data();
+  } else {
+    return;
+  }
+};

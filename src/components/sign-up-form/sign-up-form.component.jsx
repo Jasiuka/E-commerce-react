@@ -5,8 +5,10 @@ import {
 } from "../../utils/firebase/firebase.util";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-import { UserContext } from "../../contexts/user.context";
-import { useContext } from "react";
+
+// for redux
+import { setUserD } from "../../store/user/user.action";
+import { useDispatch } from "react-redux";
 
 // Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
@@ -21,10 +23,9 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
   const [message, setMessage] = useState("");
 
-  const { setUserD } = useContext(UserContext);
-
+  const dispatch = useDispatch();
   const settingUserData = (data) => {
-    setUserD(data);
+    dispatch(setUserD(data));
   };
 
   //   console.log(formFields);

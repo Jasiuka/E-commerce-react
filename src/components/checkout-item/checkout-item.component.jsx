@@ -1,18 +1,27 @@
-import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
-import { useContext, useState } from "react";
+// for redux
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { useSelector } from "react-redux";
+import { addItemToCart } from "../../store/cart/cart.action";
+import { removeItemFromCart } from "../../store/cart/cart.action";
+import { deleteItemFromCart } from "../../store/cart/cart.action";
+import { useDispatch } from "react-redux";
+
 const CheckoutItem = ({ product }) => {
   const { name, imageUrl, price, quantity, id } = product;
-  const { cartItems, addItemToCart, removeItemFromCart, deleteItemFromCart } =
-    useContext(CartDropDownContext);
+  const dispatch = useDispatch();
 
-  const addItemHandler = () => addItemToCart(product);
-  const removeItemHandler = () => removeItemFromCart(product);
-  const deleteItemHandler = () => deleteItemFromCart(product);
+  const cartItems = useSelector(selectCartItems);
+
+  const addItemHandler = () => dispatch(addItemToCart(cartItems, product));
+  const removeItemHandler = () =>
+    dispatch(removeItemFromCart(cartItems, product));
+  const deleteItemHandler = () =>
+    dispatch(deleteItemFromCart(cartItems, product));
 
   return (
     <div className="checkout__item">
       <div className="checkout__item-image-box">
-        <img className="checkout__item-image" src={imageUrl} />
+        <img className="checkout__item-image" src={imageUrl} alt={name} />
       </div>
       <h2 className="checkout__item-name">{name}</h2>
       <div className="checkout__quantity-box">

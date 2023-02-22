@@ -1,9 +1,11 @@
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { CartDropDownContext } from "../../contexts/cart-dropdown.context";
-import { useContext } from "react";
-
+// for redux
+import { selectCartTotal } from "../../store/cart/cart.selector";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { useSelector } from "react-redux";
 const Checkout = () => {
-  const { cartItems, cartTotal } = useContext(CartDropDownContext);
+  const cartTotal = useSelector(selectCartTotal);
+  const cartItems = useSelector(selectCartItems);
 
   return (
     <div className="checkout">

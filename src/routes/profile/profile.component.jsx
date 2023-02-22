@@ -5,10 +5,6 @@ import { setUsername, setUserImageUrl } from "../../store/user/user.action";
 import { dataBase } from "../../utils/firebase/firebase.util";
 import { doc, setDoc } from "firebase/firestore";
 
-// USING CONTEXT
-// import { UserContext } from "../../contexts/user.context";
-// import { changeUserName, changeImageUrl } from "../../contexts/user.context";
-
 // Functions to change username and imageUrl data in DB
 export const changeUserName = async (currentUser, newName) => {
   const userRef = doc(dataBase, "users", currentUser.uid);
@@ -29,17 +25,6 @@ export const changeImageUrl = async (currentUser, newUrl) => {
 
 const Profile = () => {
   const dispatch = useDispatch();
-
-  // Method for using context
-  // const {
-  //   userEmail,
-  //   userCreated,
-  //   userUsername,
-  //   userImageUrl,
-  //   currentUser,
-  //   setUsername,
-  //   setUserImageUrl,
-  // } = useContext(UserContext);
 
   const { userEmail, userCreated, userUsername, userImageUrl, currentUser } =
     useSelector((state) => state.user);
@@ -69,25 +54,29 @@ const Profile = () => {
 
   // Getting date in format of YYYY/MM/DD
   useEffect(() => {
-    if (userCreated.seconds) {
-      const userSeconds = userCreated.seconds;
-      const thisDate = new Date(null);
-      thisDate.setTime(userSeconds * 1000);
-      const userDay = thisDate.getDate();
-      const userMonth = `${thisDate.getMonth() > 9 ? "" : "0"}${
-        thisDate.getMonth() + 1
-      }`;
-      const userYear = thisDate.getFullYear();
-      const date = `${userYear} / ${userMonth} / ${userDay}`;
-      setDate(date);
+    if (userCreated) {
+      if (userCreated.seconds) {
+        const userSeconds = userCreated.seconds;
+        const thisDate = new Date(null);
+        thisDate.setTime(userSeconds * 1000);
+        const userDay = thisDate.getDate();
+        const userMonth = `${thisDate.getMonth() > 9 ? "" : "0"}${
+          thisDate.getMonth() + 1
+        }`;
+        const userYear = thisDate.getFullYear();
+        const date = `${userYear} / ${userMonth} / ${userDay}`;
+        setDate(date);
+      } else {
+        const userDay = userCreated.getDate();
+        const userMonth = `${userCreated.getMonth() > 9 ? "" : "0"}${
+          userCreated.getMonth() + 1
+        }`;
+        const userYear = userCreated.getFullYear();
+        const date = `${userYear} / ${userMonth} / ${userDay}`;
+        setDate(date);
+      }
     } else {
-      const userDay = userCreated.getDate();
-      const userMonth = `${userCreated.getMonth() > 9 ? "" : "0"}${
-        userCreated.getMonth() + 1
-      }`;
-      const userYear = userCreated.getFullYear();
-      const date = `${userYear} / ${userMonth} / ${userDay}`;
-      setDate(date);
+      return;
     }
   }, [userCreated]);
 
