@@ -98,7 +98,16 @@ export const CreateUserDocumentFromAuth = async (
   //   if user data does not exist
   //   create / set the document with data from userAuth in my collection
   if (!userData.exists()) {
-    const { displayName, email } = userAuth;
+    let displayName;
+    if (additionalInformation && !userAuth.displayName) {
+      displayName = additionalInformation.displayName;
+    } else {
+      displayName = userAuth.displayName;
+    }
+    const { email } = userAuth;
+    if (displayName.includes(" ")) {
+      displayName = displayName.substring(0, displayName.indexOf(" "));
+    }
     const createdAt = new Date();
     const imageUrl = "https://i.ibb.co/VYjmWqD/guest-User.jpg";
 
@@ -116,7 +125,7 @@ export const CreateUserDocumentFromAuth = async (
   }
 
   // if user data exist --> return userDocReference
-  return userDocReference;
+  return userData;
 };
 
 export const UserCreateWithEmailAndPassword = async (email, password) => {
@@ -135,3 +144,18 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+// For redux saga
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

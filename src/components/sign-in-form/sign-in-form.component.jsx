@@ -7,6 +7,11 @@ import { getRedirectResult } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
+import { useDispatch } from "react-redux";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user.action";
 
 const defaultFields = {
   email: "",
@@ -14,18 +19,20 @@ const defaultFields = {
 };
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   ////////////////// Functionality of logging in ////////////////
+  const signInRedirect = async () => {
+    dispatch(googleSignInStart());
+  };
 
   // Sign in with redirect
   useEffect(
     () => async () => {
-      await getRedirectResult(auth);
+      // await getRedirectResult(auth);
       //   console.log("Response");
       //   console.log(response);
-
       // if (response) {
       // const { user } = response;
-
       // console.log("User");
       // console.log(user);
       // }
@@ -44,7 +51,7 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      await SignInUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
 
       // setCurrentUser(user); // remove
 
@@ -96,11 +103,7 @@ const SignIn = () => {
         />
         <div className="signin__buttons">
           <Button type="submit">Sign In</Button>
-          <Button
-            type="button"
-            buttonType="google"
-            onClick={SignInWithGoogleRedirect}
-          >
+          <Button type="button" buttonType="google" onClick={signInRedirect}>
             Sign in with Google
           </Button>
         </div>

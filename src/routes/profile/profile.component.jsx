@@ -7,7 +7,8 @@ import { doc, setDoc } from "firebase/firestore";
 
 // Functions to change username and imageUrl data in DB
 export const changeUserName = async (currentUser, newName) => {
-  const userRef = doc(dataBase, "users", currentUser.uid);
+  const userRef = doc(dataBase, "users", currentUser.id);
+
   const newData = {
     displayName: newName,
   };
@@ -15,7 +16,7 @@ export const changeUserName = async (currentUser, newName) => {
 };
 
 export const changeImageUrl = async (currentUser, newUrl) => {
-  const userRef = doc(dataBase, "users", currentUser.uid);
+  const userRef = doc(dataBase, "users", currentUser.id);
   const newData = {
     imageUrl: newUrl,
   };

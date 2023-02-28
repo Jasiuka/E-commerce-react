@@ -10,6 +10,8 @@ import Button from "../button/button.component";
 import { setUserD } from "../../store/user/user.action";
 import { useDispatch } from "react-redux";
 
+// For sagas
+import { signUpStart } from "../../store/user/user.action";
 // Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
   displayName: "",
@@ -45,11 +47,9 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await UserCreateWithEmailAndPassword(email, password);
+      dispatch(signUpStart(email, password, displayName));
       const DEFAULT_IMAGE = "https://i.ibb.co/wYp5NJt/icons8-customer-100.png";
       const DATE = new Date();
-
-      await CreateUserDocumentFromAuth(user, { displayName });
       const userData = {
         displayName: displayName,
         email: email,

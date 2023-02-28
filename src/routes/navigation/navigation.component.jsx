@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUsername } from "../../store/user/user.action";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
+// for saga
+import { signOutStart } from "../../store/user/user.action";
+
 const Navigation = () => {
   const dispatch = useDispatch();
   const { currentUser, userUsername, userImageUrl } = useSelector(
@@ -18,7 +21,7 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutFromWeb = () => {
-    signOutUser();
+    dispatch(signOutStart());
     dispatch(setUsername(""));
   };
 
