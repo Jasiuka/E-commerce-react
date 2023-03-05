@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 // USING REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { setUsername, setUserImageUrl } from "../../store/user/user.action";
+import { setUsername, setUserImageUrl } from "../../store/user/user.reducer";
 import { dataBase } from "../../utils/firebase/firebase.util";
 import { doc, setDoc } from "firebase/firestore";
+import Button from "../../components/button/button.component";
+import { useNavigate } from "react-router-dom";
 
 // Functions to change username and imageUrl data in DB
 export const changeUserName = async (currentUser, newName) => {
-  const userRef = doc(dataBase, "users", currentUser.id);
+  const userRef = doc(dataBase, "users", currentUser.uid);
 
   const newData = {
     displayName: newName,
@@ -16,7 +18,7 @@ export const changeUserName = async (currentUser, newName) => {
 };
 
 export const changeImageUrl = async (currentUser, newUrl) => {
-  const userRef = doc(dataBase, "users", currentUser.id);
+  const userRef = doc(dataBase, "users", currentUser.uid);
   const newData = {
     imageUrl: newUrl,
   };
@@ -26,6 +28,8 @@ export const changeImageUrl = async (currentUser, newUrl) => {
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const navigateHandlder = () => navigate("/sign-in");
 
   const { userEmail, userCreated, userUsername, userImageUrl, currentUser } =
     useSelector((state) => state.user);
@@ -60,7 +64,9 @@ const Profile = () => {
         const userSeconds = userCreated.seconds;
         const thisDate = new Date(null);
         thisDate.setTime(userSeconds * 1000);
-        const userDay = thisDate.getDate();
+        const userDay = `${
+          thisDate.getDate() > 9 ? " " : "0"
+        }${thisDate.getDate()}`;
         const userMonth = `${thisDate.getMonth() > 9 ? "" : "0"}${
           thisDate.getMonth() + 1
         }`;
@@ -68,7 +74,9 @@ const Profile = () => {
         const date = `${userYear} / ${userMonth} / ${userDay}`;
         setDate(date);
       } else {
-        const userDay = userCreated.getDate();
+        const userDay = `${
+          userCreated.getDate() > 9 ? " " : "0"
+        }${userCreated.getDate()}`;
         const userMonth = `${userCreated.getMonth() > 9 ? "" : "0"}${
           userCreated.getMonth() + 1
         }`;
@@ -109,7 +117,14 @@ const Profile = () => {
     setUrlValue(name.value);
   };
 
-  return (
+  return !currentUser ? (
+    <div className="profile">
+      <h2 className="profile__signed-out profile__title">
+        You have to sign in first.
+      </h2>
+      <Button onClick={navigateHandlder}>Click to sign in</Button>
+    </div>
+  ) : (
     <div className="profile">
       <h2 className="profile__title ">Your profile</h2>
       <div className="profile__data">

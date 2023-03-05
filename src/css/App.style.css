@@ -264,6 +264,9 @@ body {
   margin-top: 0.6rem;
   font-weight: bolder; }
 
+.sign-in__page__signed-in-title {
+  font-size: 2.4rem; }
+
 .product-card {
   width: 100%;
   display: flex;

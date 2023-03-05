@@ -10,25 +10,36 @@ import Footer from "./components/footer/footer.component";
 // for user
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { checkUserSession, setUserD } from "./store/user/user.action";
+import { setUserD } from "./store/user/user.reducer";
 
 // default for without sagas:
 import {
   onAuthStateChangedListener,
   CreateUserDocumentFromAuth,
-  getCurrentUser,
 } from "./utils/firebase/firebase.util";
-import { setCurrentUser } from "./store/user/user.action";
-import { getUserData } from "./store/user/user.action";
+import { setCurrentUser } from "./store/user/user.reducer";
+import { getUserData } from "./store/user/user.reducer";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    // getCurrentUser().then((user) => {
-    //   console.log(user);
-    //   getUserData(user).then((response) => dispatch(setUserD(response)));
-    // });
-    dispatch(checkUserSession());
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        CreateUserDocumentFromAuth(user).then((response) => {
+          if (response) dispatch(setUserD(response));
+        });
+
+        getUserData(user).then((response) => {
+          if (response) dispatch(setUserD(response));
+        });
+      }
+      dispatch(setCurrentUser(user));
+      navigate("/");
+    });
+
+    return unsubscribe;
   }, []);
 
   return (

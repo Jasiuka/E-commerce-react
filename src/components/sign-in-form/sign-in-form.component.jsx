@@ -8,34 +8,21 @@ import { useEffect, useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import { useDispatch } from "react-redux";
-import {
-  googleSignInStart,
-  emailSignInStart,
-} from "../../store/user/user.action";
-
 const defaultFields = {
   email: "",
   password: "",
 };
 
 const SignIn = () => {
-  const dispatch = useDispatch();
   ////////////////// Functionality of logging in ////////////////
   const signInRedirect = async () => {
-    dispatch(googleSignInStart());
+    await SignInWithGoogleRedirect();
   };
 
   // Sign in with redirect
   useEffect(
     () => async () => {
-      // await getRedirectResult(auth);
-      //   console.log("Response");
-      //   console.log(response);
-      // if (response) {
-      // const { user } = response;
-      // console.log("User");
-      // console.log(user);
-      // }
+      const response = await getRedirectResult(auth);
     },
     []
   );
@@ -51,9 +38,7 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      dispatch(emailSignInStart(email, password));
-
-      // setCurrentUser(user); // remove
+      await SignInUserWithEmailAndPassword(email, password);
 
       setFormField(defaultFields);
     } catch (error) {

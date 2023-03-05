@@ -1,22 +1,22 @@
 // for redux
 import { selectCartItems } from "../../store/cart/cart.selector";
 import { useSelector } from "react-redux";
-import { addItemToCart } from "../../store/cart/cart.action";
-import { removeItemFromCart } from "../../store/cart/cart.action";
-import { deleteItemFromCart } from "../../store/cart/cart.action";
+import { addItemToCart } from "../../store/cart/cart.reducer";
+import { removeItemFromCart } from "../../store/cart/cart.reducer";
+import { deleteItemFromCart } from "../../store/cart/cart.reducer";
 import { useDispatch } from "react-redux";
 
 const CheckoutItem = ({ product }) => {
   const { name, imageUrl, price, quantity, id } = product;
   const dispatch = useDispatch();
 
+  // without toolkit
   const cartItems = useSelector(selectCartItems);
+  // //////
 
-  const addItemHandler = () => dispatch(addItemToCart(cartItems, product));
-  const removeItemHandler = () =>
-    dispatch(removeItemFromCart(cartItems, product));
-  const deleteItemHandler = () =>
-    dispatch(deleteItemFromCart(cartItems, product));
+  const addItemHandler = () => dispatch(addItemToCart(product));
+  const removeItemHandler = () => dispatch(removeItemFromCart(product));
+  const deleteItemHandler = () => dispatch(deleteItemFromCart(product));
 
   return (
     <div className="checkout__item">

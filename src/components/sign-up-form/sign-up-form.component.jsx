@@ -7,11 +7,9 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
 // for redux
-import { setUserD } from "../../store/user/user.action";
+import { setUserD } from "../../store/user/user.reducer";
 import { useDispatch } from "react-redux";
 
-// For sagas
-import { signUpStart } from "../../store/user/user.action";
 // Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
   displayName: "",
@@ -47,7 +45,7 @@ const SignUpForm = () => {
     }
 
     try {
-      dispatch(signUpStart(email, password, displayName));
+      const { user } = await UserCreateWithEmailAndPassword(email, password);
       const DEFAULT_IMAGE = "https://i.ibb.co/wYp5NJt/icons8-customer-100.png";
       const DATE = new Date();
       const userData = {
@@ -56,7 +54,8 @@ const SignUpForm = () => {
         imageUrl: DEFAULT_IMAGE,
         createdAt: DATE,
       };
-      settingUserData(userData);
+      dispatch(setUserD(userData));
+      await CreateUserDocumentFromAuth(user, userData);
 
       setFormFields(defaultFormFields);
     } catch (error) {

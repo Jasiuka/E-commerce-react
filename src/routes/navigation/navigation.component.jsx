@@ -4,24 +4,24 @@ import { Fragment } from "react";
 import { signOutUser } from "../../utils/firebase/firebase.util";
 import ShoppingCart from "../../components/shopipng-cart/shopping-cart.component";
 import ShoppingCartDropdown from "../../components/shopipng-cart/shopping-cart-dropdown.component";
+import { useNavigate } from "react-router-dom";
 
 // for redux
 import { useDispatch, useSelector } from "react-redux";
-import { setUsername } from "../../store/user/user.action";
+import { setUsername } from "../../store/user/user.reducer";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
-
-// for saga
-import { signOutStart } from "../../store/user/user.action";
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser, userUsername, userImageUrl } = useSelector(
     (state) => state.user
   );
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutFromWeb = () => {
-    dispatch(signOutStart());
+    signOutUser();
+    navigate("/");
     dispatch(setUsername(""));
   };
 

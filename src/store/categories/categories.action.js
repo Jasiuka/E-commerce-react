@@ -4,17 +4,13 @@ import { CATEGORIES_ACTION_TYPES } from "./categories.types";
 // needed for thunk
 // import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.util";
 
-export const fetchCategoriesStart = () =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const setCategoriesMap = (categories) =>
+  createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES_MAP, categories);
 
-export const fetchCategoriesSuccess = (categoriesArray) =>
-  createAction(
-    CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-    categoriesArray
-  );
-
-export const fetchCategoriesFailed = (error) =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
+export const setCategoriesFailed = (error) =>
+  createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES_FAILED, error);
+export const setCategoriesIsLoading = (bool) =>
+  createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES_IS_LOADING, bool);
 
 // redux thunk fnc
 // export const fetchCategoriesAsync = () => {

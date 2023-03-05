@@ -9,14 +9,15 @@ import { selectCategories } from "../../store/categories/categories.selector";
 import { selectCategoriesIsLoading } from "../../store/categories/categories.selector";
 import Spinner from "../../components/spinner/spinner.component";
 
+// /////////////////
+
 const CategoriesPreview = () => {
   // for redux
   const categoriesMap = useSelector(selectCategories);
   const isLoading = useSelector(selectCategoriesIsLoading);
-
   //
-
   // const { categoriesMap } = useContext(CategoriesContext);
+
   return isLoading ? (
     <Spinner />
   ) : (
