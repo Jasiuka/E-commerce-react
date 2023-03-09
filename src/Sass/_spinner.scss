@@ -20,3 +20,26 @@
     transform: rotate(360deg);
   }
 }
+
+// Button spinner
+
+.button-spinner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+
+  &__text {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid rgb(195, 195, 195);
+    border-radius: 50%;
+    border-top-color: black;
+    animation: spin 1s ease-in-out infinite;
+  }
+}

@@ -9,10 +9,77 @@
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 56.25em) {
+    font-size: 50%;
+  }
+  @media only screen and (max-width: 37.5em) {
+    font-size: 37.5%;
+  }
 }
 
 body {
   // margin: 0 1rem;
   font-family: "Open Sans", sans-serif;
   padding: 2rem 0rem 0rem 0rem;
+}
+
+// Mixins for responsive design
+
+// firstBr -- 1300px
+// secondBr -- 1250px
+// thirdBr -- 1150px
+// fourthBr -- 900px
+// fifthBr -- 780px
+// sixthBr -- 600px
+// seventhhBr -- 400px
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == firstBr {
+    @media only screen and (max-width: 81.25em) {
+      // 1300px
+      @content;
+    }
+  }
+
+  @if $breakpoint == secondBr {
+    @media only screen and (max-width: 78.125em) {
+      // 1250px
+      @content;
+    }
+  }
+
+  @if $breakpoint == thirdBr {
+    @media only screen and (max-width: 71.875em) {
+      // 1150px
+      @content;
+    }
+  }
+
+  @if $breakpoint == fourthBr {
+    @media only screen and (max-width: 56.25em) {
+      // 900px
+      @content;
+    }
+  }
+
+  @if $breakpoint == fifthBr {
+    @media only screen and (max-width: 48.75em) {
+      // 780px
+      @content;
+    }
+  }
+
+  @if $breakpoint == sixthBr {
+    @media only screen and (max-width: 37.5em) {
+      // 600px
+      @content;
+    }
+  }
+  @if $breakpoint == seventhBr {
+    @media only screen and (max-width: 25em) {
+      // 400px
+      @content;
+    }
+  }
 }

@@ -44,7 +44,7 @@ const Checkout = () => {
           )}
         </div>
       )}
-      <PaymentForm />
+      {cartItems.length !== 0 ? <PaymentForm /> : <></>}
     </div>
   );
 };

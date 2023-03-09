@@ -42,3 +42,16 @@
 .sign-in__page__signed-in-title {
   font-size: 2.4rem;
 }
+
+// Responsive
+
+.signin__buttons {
+  @include respond(firstBr) {
+    flex-direction: column;
+    gap: 1.5rem;
+
+    & button {
+      width: 100%;
+    }
+  }
+}

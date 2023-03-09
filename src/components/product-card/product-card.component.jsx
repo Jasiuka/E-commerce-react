@@ -1,14 +1,12 @@
 import Button from "../button/button.component";
 // for redux
 import { addItemToCart } from "../../store/cart/cart.reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCartItems } from "../../store/cart/cart.selector";
+import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
   const dispatch = useDispatch();
   // without redux toolkit
-  const cartItems = useSelector(selectCartItems);
   // //////////
   const addProductToCart = () => dispatch(addItemToCart(product));
 
@@ -20,8 +18,8 @@ const ProductCard = ({ product }) => {
         <p className="product-card__text--price">{price}$</p>
       </div>
       <div className="product-card__button-box">
-        <Button buttonType="inverted" onClick={addProductToCart}>
-          Add to cart
+        <Button buttonType={"inverted"} onClick={addProductToCart}>
+          <p>add to cart</p>
         </Button>
       </div>
     </div>

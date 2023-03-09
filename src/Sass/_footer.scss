@@ -64,6 +64,11 @@
       font-size: 1.6rem;
       color: #9e9e9e;
     }
+
+    @include respond(thirdBr) {
+      flex-direction: column;
+      gap: 4rem;
+    }
   }
 
   &__list-navigation,
@@ -96,6 +101,10 @@
   &__icon {
     width: 2rem;
     height: 2rem;
+  }
+
+  @include respond(fifthBr) {
+    margin-top: 10rem;
   }
 }
 

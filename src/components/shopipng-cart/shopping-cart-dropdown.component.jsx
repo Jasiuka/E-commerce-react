@@ -2,10 +2,14 @@ import { Fragment } from "react";
 import CartItem from "./cart-item.component";
 import { Link } from "react-router-dom";
 // for redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cart.selector.js";
+import { setIsCartOpen } from "../../store/cart/cart.reducer";
 const ShoppingCartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+
+  const hideDropDown = () => dispatch(setIsCartOpen(false));
 
   return (
     <div
@@ -20,7 +24,7 @@ const ShoppingCartDropdown = () => {
               <CartItem key={item.id} cartItem={item} />
             ))}
           </div>
-          <Link to="checkout" className="button">
+          <Link to="checkout" className="button" onClick={hideDropDown}>
             GO TO CHECKOUT
           </Link>
         </Fragment>

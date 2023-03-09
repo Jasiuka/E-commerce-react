@@ -41,6 +41,10 @@
       font-weight: lighter;
       font-size: 1.6rem;
     }
+
+    @include respond(fifthBr) {
+      width: 70%;
+    }
   }
 
   &:hover {

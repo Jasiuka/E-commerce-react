@@ -2,6 +2,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import Button from "../button/button.component";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
+import { useState } from "react";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -10,10 +11,14 @@ const PaymentForm = () => {
   const { userUsername } = useSelector((state) => state.user);
   const cartTotal = useSelector(selectCartTotal);
 
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
   const paymentHandler = async (e) => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
+
+    setIsProcessingPayment(true);
 
     const response = await fetch("/.netlify/functions/create-payment-intent", {
       method: "post",
@@ -29,14 +34,15 @@ const PaymentForm = () => {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: userUsername,
+          name: userUsername ? userUsername : "guest",
         },
       },
     });
 
+    setIsProcessingPayment(false);
+
     if (paymentResult.error) {
-      console.log("veikiu");
-      alert(paymentResult.error);
+      alert("Oops, something went wrong. Payment was unsuccessful");
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         alert("Payment successful");
@@ -48,8 +54,10 @@ const PaymentForm = () => {
     <div className="checkout__payment">
       <h2>Credit card payment:</h2>
       <form className="checkout__payment-form" onSubmit={paymentHandler}>
-        <CardElement />
-        <Button>Pay now</Button>
+        <CardElement className="checkout__payment__card-details" />
+        <Button isLoading={isProcessingPayment} buttonType={"payment"}>
+          Pay now
+        </Button>
       </form>
     </div>
   );
