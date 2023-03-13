@@ -1,4 +1,3 @@
-import { CART_ACTION_TYPES } from "./cart.types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
@@ -33,26 +32,6 @@ export const {
 } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
-
-// Without toolkit
-// export const cartReducer = (state = INITIAL_STATE, action = {}) => {
-//   const { type, payload } = action;
-
-//   switch (type) {
-//     case CART_ACTION_TYPES.SET_CART_ITEMS:
-//       return {
-//         ...state,
-//         cartItems: payload,
-//       };
-//     case CART_ACTION_TYPES.TOGGLE_IS_CART_OPEN:
-//       return {
-//         ...state,
-//         isCartOpen: payload,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 // Helper functions
 const addCartItem = (cartItems, productToAdd) => {

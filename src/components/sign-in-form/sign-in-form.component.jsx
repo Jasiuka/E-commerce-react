@@ -7,7 +7,6 @@ import { getRedirectResult } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
-import { useDispatch } from "react-redux";
 const defaultFields = {
   email: "",
   password: "",
@@ -26,13 +25,6 @@ const SignIn = () => {
     },
     []
   );
-
-  // sign in with popup
-
-  //   const logGoogleUserWithPopUp = async () => {
-  //     const { user } = await SignInWithGooglePopUp();
-  //     await CreateUserDocumentFromAuth(user);
-  //   };
 
   const HandleSubmit = async (event) => {
     event.preventDefault();

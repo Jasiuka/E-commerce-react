@@ -88,9 +88,7 @@ export const CreateUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
 ) => {
-  const userDocReference = doc(dataBase, "users", userAuth.uid); // Duomenu bazė, kolekcijos pav (duomenu bazėj), id
-  // userDocReference, yra skirtas tik patikrint ar egzistuoja toks reference duomenu bazėj, jis nera skirtas gauti info ar keisti
-  // console.log(userDocReference);
+  const userDocReference = doc(dataBase, "users", userAuth.uid);
 
   const userData = await getDoc(userDocReference);
   // console.log(userData.exists()); // patikrina ar egzistuoja vartotojo duomenys duomenu bazėj

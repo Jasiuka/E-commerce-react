@@ -10,7 +10,6 @@ import Button from "../button/button.component";
 import { setUserD } from "../../store/user/user.reducer";
 import { useDispatch } from "react-redux";
 
-// Susikuriam objekta, kadangi visi laukai yra panašaus pobudžio, todėl galima visus kintamuosius į objekta
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -24,11 +23,6 @@ const SignUpForm = () => {
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
-  const settingUserData = (data) => {
-    dispatch(setUserD(data));
-  };
-
-  //   console.log(formFields);
 
   const OnChangeHandler = (event) => {
     const { name, value } = event.target;
