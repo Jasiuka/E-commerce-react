@@ -9,4 +9,16 @@ In this project I learned:
   + Redux toolkit.
   + React context.
   + Reducers.
-  
+  + Redux-Sagas.
+  + Redux-thunk.
+ + Firebase / Firestore.
+ + Stripe.
+
+Also I've added some features by myself like:
++ Profile page.
++ Username change.
++ Profile picture.
++ Profile picture change (using links).
+
+ This was a challenging course, but I made it, learnt a lot. And this course is start of my React.js development path.
+
