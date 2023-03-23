@@ -13,6 +13,7 @@ In this project I learned:
   + Redux-thunk.
  + Firebase / Firestore.
  + Stripe.
+ + React Query
 
 Also I've added some features by myself like:
 + Profile page.
