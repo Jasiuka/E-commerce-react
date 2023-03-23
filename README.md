@@ -11,9 +11,9 @@ In this project I learned:
   + Reducers.
   + Redux-Sagas.
   + Redux-thunk.
+  + Query
  + Firebase / Firestore.
  + Stripe.
- + React Query
 
 Also I've added some features by myself like:
 + Profile page.
